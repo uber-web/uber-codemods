@@ -1,0 +1,8 @@
+node_modules/
+dist/
+coverage/
+dist-cover/
+dist-pkg/
+npm-debug.log
+lerna-debug.log
+npm-debug.log.*

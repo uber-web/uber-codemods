@@ -1,0 +1,40 @@
+{
+  "name": "@uber/web-platform-codemods",
+  "version": "0.0.0",
+  "description": "Web platform codemods",
+  "bugs": {
+    "url": "https://github.com/uber-web/codemods/issues"
+  },
+  "author": {
+    "name": "Uber Web Platform Team"
+  },
+  "repository": {
+    "type": "git",
+      "url": "github:uber-web/codemods"
+  },
+  "scripts": {
+    "lint": "eslint src",
+    "transpile": "babel src -d dist",
+    "test": "npm run lint && jest",
+    "preunpm-publish": "npm run transpile && derive-pkg -d dist",
+    "unpm-publish": "npm publish dist"
+  },
+  "dependencies": {
+    "eslint-config-uber-es2015": "^2.0.1",
+    "global": "^4.3.1",
+    "globby": "^6.0.0",
+    "just-intersect": "^1.1.22"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-eslint": "^7.0.0",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-stage-2": "^6.16.0",
+    "eslint": "^3.6.1",
+    "eslint-config-uber-es2015": "^2.0.1",
+    "eslint-plugin-react": "^5.0.0",
+    "jest": "^16.0.0",
+    "jscodeshift": "^0.3.29"
+  },
+  "license": "UNLICENSED"
+}

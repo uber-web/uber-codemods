@@ -1,0 +1,12 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "eslint-config-uber-es2015"
+  ],
+  "ecmaFeatures": {
+    "experimentalObjectRestSpread": true
+  },
+  "env": {
+    "node": true
+  }
+}
