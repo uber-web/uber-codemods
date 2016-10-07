@@ -14,17 +14,6 @@ Use the -d option for a dry-run and use -p to print the output for comparison.
 
 ## Included mods
 
-### objectOmit-to-justOmit
+### object-omit-to-just-omit
 
 Replaces all uses of [object.omit](https://github.com/jonschlinkert/object.omit) with [just-omit](https://github.com/angus-c/just/tree/master/packages/object-omit)
-
-```
-# convert js
-jscodeshift -t codemods/src/objectOmit-to-justOmit.js packages/*/src
-
-# convert package.json
-node codemods/objectOmit-to-justOmit-packageJSON/cli.js
-```
-
-
-
