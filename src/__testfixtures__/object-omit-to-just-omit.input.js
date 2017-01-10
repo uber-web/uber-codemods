@@ -1,4 +1,5 @@
 import omit from 'object.omit';
+const otherOmit = require('object.omit');
 
 const props = omit(
   {

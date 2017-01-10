@@ -5,7 +5,7 @@ const globby = require('globby');
 const filePath = process.argv[2];
 
 const keywordToAdd = 'superfine-react-component';
-const writeOpts = {spaces: 2};
+const writeOptions = require('./write-options.json');
 
 if (typeof filePath === 'undefined') {
   console.error('missing json file(s) path');
@@ -26,7 +26,7 @@ filePaths.forEach(path => {
     }
     _keywords.push(keywordToAdd);
     obj.keywords = _keywords;
-    jsonfile.writeFile(path, obj, writeOpts, function writeCb(writeErr) {
+    jsonfile.writeFile(path, obj, writeOptions, function writeCb(writeErr) {
       if (writeErr) {
         console.error(`error writing file "${path}": ${writeErr}`);
       }

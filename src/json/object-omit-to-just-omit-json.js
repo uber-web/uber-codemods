@@ -1,13 +1,14 @@
 #!/usr/bin/env node
-const fs = require('fs');
 const globby = require('globby');
 
+const jsonfile = require('jsonfile');
+const writeOptions = require('./write-options.json');
 const filesPath = 'packages/*/package.json';
 const files = globby.sync(filesPath);
 
 // TODO: modularize out this functionality to be more re-usable
 files.forEach((filePath) => {
-  const obj = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  const obj = jsonfile.readFileSync(filePath);
 
   if (obj.dependencies && 'object.omit' in obj.dependencies) {
     delete obj.dependencies['object.omit'];
@@ -18,5 +19,5 @@ files.forEach((filePath) => {
     obj.devDependencies['just-omit'] = '^1.0.1';
   }
 
-  fs.writeFileSync(filePath, `${JSON.stringify(obj, null, 2)}\n`);
+  jsonfile.writeFileSync(filePath, obj, writeOptions);
 });
