@@ -1,5 +1,3 @@
-import console from 'global/console';
-
 function isChildren(x) {
   if (typeof x === 'undefined') {
     return false;

@@ -12,29 +12,21 @@
     "type": "git",
       "url": "github:uber-web/codemods"
   },
+  "files": [
+    "src"
+  ],
   "scripts": {
     "lint": "eslint src",
-    "transpile": "babel src -d dist",
-    "test": "npm run lint && jest",
-    "preunpm-publish": "npm run transpile && derive-pkg -d dist",
-    "unpm-publish": "npm publish dist"
+    "test": "npm run lint && jest"
   },
   "dependencies": {
-    "eslint-config-uber-es2015": "^2.0.1",
-    "global": "^4.3.1",
-    "globby": "^6.0.0",
-    "just-intersect": "^1.1.22"
+    "globby": "^6.1.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.16.0",
-    "babel-eslint": "^7.0.0",
-    "babel-preset-es2015": "^6.16.0",
-    "babel-preset-stage-2": "^6.16.0",
-    "eslint": "^3.6.1",
-    "eslint-config-uber-es2015": "^2.0.1",
-    "eslint-plugin-react": "^5.0.0",
-    "jest": "^16.0.0",
-    "jscodeshift": "^0.3.29"
+    "eslint": "^3.13.1",
+    "eslint-config-uber-es2015": "^3.0.1",
+    "jest": "^18.1.0",
+    "jscodeshift": "^0.3.30"
   },
-  "license": "UNLICENSED"
+  "license": "MIT"
 }
