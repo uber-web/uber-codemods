@@ -14,32 +14,32 @@ Use the -d option for a dry-run and use -p to print the output for comparison.
 
 ## Included mods
 
-### r-dom-to-react-create-element
+### `r-dom-to-react-create-element`
 
 Replaces all uses of [r-dom](https://github.com/uber/r-dom) with React's `createElement()`
 
 ##### Usage
 
 ```sh
-jscodeshift -t node_modules/uber-web-codemods/src/r-dom-to-react-create-element <transform-path>
+jscodeshift -t node_modules/uber-web-codemods/src/r-dom-to-react-create-element.js <transform-path>
 ```
 
-### replace-require
+### `replace-require`
 
 Replaces all requires **and** imports of `toReplace` with `replaceWith`. Takes two options via the cli.
 
 ##### Usage
 
 ```sh
-jscodeshift -t node_modules/uber-web-codemods/src/replace-require <transform-path> --toReplace="object.omit" --replaceWith="just-omit"
+jscodeshift -t node_modules/uber-web-codemods/src/replace-require.js <transform-path> --toReplace="object.omit" --replaceWith="just-omit"
 ```
 
-### xtend-to-spread
+### `xtend-to-spread`
 
 Replaces all uses of [`xtend`](https://github.com/Raynos/xtend) with the es6 spread operator.
 
 ##### Usage
 
 ```sh
-jscodeshift -t node_modules/uber-web-codemods/src/xtend-to-spread <transform-path>
+jscodeshift -t node_modules/uber-web-codemods/src/xtend-to-spread.js <transform-path>
 ```
