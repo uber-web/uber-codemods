@@ -53,9 +53,9 @@ function validateElement(element) {
   ];
 
   if (typeof element === 'string' && !elements.includes(element)) {
-    /* eslint-disable no-console */
+    /* eslint-disable no-console, no-undef */
     console.error('Unknown Element:', element);
-    /* eslint-enable no-console */
+    /* eslint-enable no-undef, no-console */
   }
 }
 
