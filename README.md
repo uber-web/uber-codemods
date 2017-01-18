@@ -16,7 +16,7 @@ Use the -d option for a dry-run and use -p to print the output for comparison.
 
 ### `r-dom-to-react-create-element`
 
-Replaces all uses of [r-dom](https://github.com/uber/r-dom) with React's `createElement()`
+Replaces all uses of [r-dom](https://github.com/uber/r-dom) with React's `createElement()`. After this conversion, you can optionally use the [create-element-to-jsx codemod](https://github.com/reactjs/react-codemod#create-element-to-jsx) to generate jsx.
 
 ##### Usage
 
