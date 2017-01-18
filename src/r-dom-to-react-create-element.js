@@ -27,8 +27,15 @@ function isChildren(x) {
 
 function removeImport(source, j) {
   let rDomIdentifier;
-  return {
-    source: j(source)
+  const root = j(source);
+  const getFirstNode = () => root.find(j.Program).get('body', 0).node;
+
+  // Save the comments attached to the first node
+  // https://github.com/facebook/jscodeshift/blob/master/recipes/retain-first-comment.md
+  const firstNode = getFirstNode();
+  const {comments} = firstNode;
+
+  root
       .find(j.ImportDeclaration)
       .filter(importDeclaration => {
         return importDeclaration.value.source.rawValue === 'r-dom';
@@ -37,8 +44,16 @@ function removeImport(source, j) {
         rDomIdentifier = importDeclaration.value.specifiers[0].local.name;
         return true;
       })
-      .remove()
-    .toSource({quote: 'single'}),
+      .remove();
+
+  // If the first node has been modified or deleted, reattach the comments
+  const firstNode2 = getFirstNode();
+  if (firstNode2 !== firstNode) {
+    firstNode2.comments = comments;
+  }
+
+  return {
+    source: root.toSource({quote: 'single'}),
     rDomIdentifier
   };
 }
