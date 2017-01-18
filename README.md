@@ -1,6 +1,6 @@
 # uber-web-codemods [![Build Status](https://travis-ci.com/uber-web/codemods.svg?token=S4oyfBY3YoEdLmckujJx&branch=master)](https://travis-ci.com/uber-web/codemods)
 
-A collection of code-changing scripts for JavaScript. Most of them should be used with [JSCodeshift](https://github.com/facebook/jscodeshift).
+A collection of code-changing [JSCodeshift](https://github.com/facebook/jscodeshift) scripts for JavaScript.
 
 ## Install
 
