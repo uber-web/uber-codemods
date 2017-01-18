@@ -12,9 +12,6 @@
     "type": "git",
     "url": "github:uber-web/codemods"
   },
-  "files": [
-    "src"
-  ],
   "scripts": {
     "lint": "eslint src",
     "test": "npm run lint && jest"
@@ -29,6 +26,9 @@
     "eslint-config-uber-es2015": "^3.0.1",
     "jest": "^18.1.0",
     "jscodeshift": "^0.3.30"
+  },
+  "engines": {
+    "node": ">=4.0.0"
   },
   "license": "MIT"
 }
