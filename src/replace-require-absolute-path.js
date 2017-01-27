@@ -21,16 +21,16 @@
 // untested since this relies on local filepaths
 // jest does not apply predictable paths to tests
 
-import replaceRequire from './replace-require';
-import path from 'path';
-import process from 'process';
+const replaceRequire = require('./replace-require');
+const path = require('path');
+const process = require('process');
 
 // prepend "./" if path is not led by "../"
 const prependDotSlash = (p) => (/^\.\.\//.test(p) ? p : `./${p}`);
 
-export default function transform(file, api, opts) {
+module.exports = function transform(file, api, opts) {
   const currentFilePath = path.join(process.cwd(), file.path);
   opts.replaceWith = prependDotSlash(path.relative(
     path.dirname(currentFilePath), opts.replaceWith));
   return replaceRequire(file, api, opts);
-}
+};

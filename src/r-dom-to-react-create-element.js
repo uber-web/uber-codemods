@@ -94,7 +94,7 @@ function validateElement(element) {
   }
 }
 
-export default function transformer(file, api) {
+module.exports = function transformer(file, api) {
   const j = api.jscodeshift;
   const {source, rDomIdentifier} = removeImport(file.source, j);
 
@@ -130,7 +130,7 @@ export default function transformer(file, api) {
           );
       })
     .toSource({quote: 'single'});
-}
+};
 
 // Array includes polyfill for node 4
 // https://tc39.github.io/ecma262/#sec-array.prototype.includes

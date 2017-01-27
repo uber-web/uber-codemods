@@ -46,7 +46,7 @@ function replaceRequire(source, j, opts) {
   .toSource({quote: 'single'});
 }
 
-export default function transform(file, api, opts) {
+module.exports = function transform(file, api, opts) {
   const j = api.jscodeshift;
   const source = file.source;
 
@@ -54,4 +54,4 @@ export default function transform(file, api, opts) {
   newSource = replaceRequire(newSource, j, opts);
 
   return newSource;
-}
+};

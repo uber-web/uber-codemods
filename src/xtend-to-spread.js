@@ -104,5 +104,5 @@ function transformer(file, api) {
   return transformUsage(shifted.source, shifted.extendIdentifier, api.jscodeshift);
 }
 
-export default transformer;
+module.exports = transformer;
 
