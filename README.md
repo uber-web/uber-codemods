@@ -35,6 +35,16 @@ Replaces all requires **and** imports of `toReplace` with `replaceWith`. Takes t
 jscodeshift -t node_modules/uber-codemods/src/replace-require.js <transform-path> --toReplace="object.omit" --replaceWith="just-omit"
 ```
 
+### `replace-require-absolute-path`
+
+Replaces all requires **and** imports of `toReplace` with the relative path to `replaceWith`. Takes two options via the cli. The reason this is needed as a separate mod from `replace-require` is because the relative path to `replaceWith` changes relative to the current file being evaluated by jscodeshift.
+
+##### Usage
+
+```sh
+jscodeshift -t node_modules/uber-codemods/src/replace-require-absolute-path.js <transform-path> --toReplace="object.omit" --replaceWith=$(pwd)/just-omit
+```
+
 ### `xtend-to-spread`
 
 Replaces all uses of [`xtend`](https://github.com/Raynos/xtend) with the es6 spread operator.
