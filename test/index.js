@@ -9,7 +9,7 @@ import fs from 'fs-extra';
 const fixturesPath = path.join(__dirname, 'fixtures');
 
 const codemods = {
-  'r-dom-to-create-element': {},
+  'r-dom-to-react-create-element': {},
   'replace-require': {
     toReplace: 'object.omit',
     replaceWith: 'just-omit'
@@ -37,17 +37,22 @@ const writeTemp = (modName) => {
   return tempFileName;
 };
 
-test.only(t => {
-  t.plan(1);
-  const modName = 'replace-require';
-  const flags = codemods[modName];
+const codemodHelper = (t, codemodName) => {
+  const flags = codemods[codemodName];
 
   const jscodeshiftPath = path.join(__dirname, '..', 'node_modules', '.bin', 'jscodeshift');
-  const modPath = path.join(srcPath, `${modName}.js`);
-  const inputPath = writeTemp(`${modName}.js`);
-  const expectedOutputPath = path.join(fixturesPath, 'outputs', `${modName}.js`);
+  const modPath = path.join(srcPath, `${codemodName}.js`);
+  const inputPath = writeTemp(`${codemodName}.js`);
+  const expectedOutputPath = path.join(fixturesPath, 'outputs', `${codemodName}.js`);
 
   const commands = [jscodeshiftPath, '-t', modPath, inputPath, flagify(flags)];
   execSync(commands.join(' '));
   t.is(fs.readFileSync(inputPath, 'utf8'), fs.readFileSync(expectedOutputPath, 'utf8'));
+};
+test.only('All codemods convert input to output', t => {
+  const keys = Object.keys(codemods);
+  t.plan(keys.length);
+  keys.forEach(modName => {
+    codemodHelper(t, modName);
+  });
 });
