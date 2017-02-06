@@ -29,6 +29,7 @@ test('flagify helper function', t => {
 });
 
 const srcPath = path.join(__dirname, '..', 'src');
+const jscodeshiftPath = path.join(__dirname, '..', 'node_modules', '.bin', 'jscodeshift');
 
 // copy
 const writeTemp = (modName) => {
@@ -37,10 +38,9 @@ const writeTemp = (modName) => {
   return tempFileName;
 };
 
-const codemodHelper = (t, codemodName) => {
+const verifyCodemod = (t, codemodName) => {
   const flags = codemods[codemodName];
 
-  const jscodeshiftPath = path.join(__dirname, '..', 'node_modules', '.bin', 'jscodeshift');
   const modPath = path.join(srcPath, `${codemodName}.js`);
   const inputPath = writeTemp(`${codemodName}.js`);
   const expectedOutputPath = path.join(fixturesPath, 'outputs', `${codemodName}.js`);
@@ -49,10 +49,10 @@ const codemodHelper = (t, codemodName) => {
   execSync(commands.join(' '));
   t.is(fs.readFileSync(inputPath, 'utf8'), fs.readFileSync(expectedOutputPath, 'utf8'));
 };
-test.only('All codemods convert input to output', t => {
+test('All codemods convert input to output', t => {
   const keys = Object.keys(codemods);
   t.plan(keys.length);
   keys.forEach(modName => {
-    codemodHelper(t, modName);
+    verifyCodemod(t, modName);
   });
 });
