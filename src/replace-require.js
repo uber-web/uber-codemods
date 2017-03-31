@@ -18,40 +18,29 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-function replaceImport(source, j, opts) {
+const escapeStringRegexp = require('escape-string-regexp');
+
+function codemodReplacement(declarationType, source, j, opts) {
+  const toReplaceRegex = new RegExp(escapeStringRegexp(opts.toReplace));
   return j(source)
-    .find(j.ImportDeclaration)
-    .find(j.Literal, {
-      value: opts.toReplace
+    .find(j[declarationType])
+    .find(j.Literal)
+    .filter(function filterValidRequires(literal) {
+      const rawValue = literal.value.rawValue;
+      return typeof rawValue === 'string' && toReplaceRegex.test(rawValue);
     })
-    .replaceWith(
-      p => {
-        return j.literal(opts.replaceWith);
-      }
-    )
-  .toSource({quote: 'single'});
+    .replaceWith(function replaceValidRequires(literal) {
+      const rawValue = literal.value.rawValue;
+      const toRet = (rawValue).replace(toReplaceRegex, opts.replaceWith);
+      return j.literal(toRet);
+    })
+    .toSource({quote: 'single'});
 }
 
-function replaceRequire(source, j, opts) {
-  return j(source)
-    .find(j.VariableDeclaration)
-    .find(j.Literal, {
-      value: opts.toReplace
-    })
-    .replaceWith(
-      p => {
-        return j.literal(opts.replaceWith);
-      }
-    )
-  .toSource({quote: 'single'});
-}
-
-module.exports = function transform(file, api, opts) {
+module.exports = function replaceRequire(file, api, opts) {
   const j = api.jscodeshift;
   const source = file.source;
 
-  let newSource = replaceImport(source, j, opts);
-  newSource = replaceRequire(newSource, j, opts);
-
-  return newSource;
+  const newSource = codemodReplacement('VariableDeclaration', source, j, opts);
+  return codemodReplacement('ImportDeclaration', newSource, j, opts);
 };

@@ -19,7 +19,9 @@
 // THE SOFTWARE.
 
 import omit from 'object.omit';
+import omit from 'object.omit/extra';
 const otherOmit = require('object.omit');
+const otherOmit = require('object.omit/extra');
 
 const props = omit(
   {

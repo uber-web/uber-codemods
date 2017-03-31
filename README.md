@@ -1,7 +1,7 @@
 # uber-codemods
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
 
-A collection of code-changing [JSCodeshift's](https://github.com/facebook/jscodeshift) for JavaScript.
+> A collection of code-changing [JSCodeshift's](https://github.com/facebook/jscodeshift) for JavaScript.
 
 ## Install
 
@@ -25,15 +25,27 @@ Replaces all uses of [r-dom](https://github.com/uber/r-dom) with React's `create
 jscodeshift -t node_modules/uber-codemods/src/r-dom-to-react-create-element.js <transform-path>
 ```
 
+##### Code Examples
+
+[Before](src/__testfixtures__/r-dom-to-react-create-element.input.js)
+
+[After](src/__testfixtures__/r-dom-to-react-create-element.output.js)
+
 ### `replace-require`
 
-Replaces all requires **and** imports of `toReplace` with `replaceWith`. Takes two options via the cli.
+Replaces all requires **and** imports of `toReplace` with `replaceWith`. Takes two options via the cli. Also replaces sub-paths in your require/import statements.
 
 ##### Usage
 
 ```sh
 jscodeshift -t node_modules/uber-codemods/src/replace-require.js <transform-path> --toReplace="object.omit" --replaceWith="just-omit"
 ```
+
+##### Code Examples
+
+[Before](src/__testfixtures__/replace-require.input.js)
+
+[After](src/__testfixtures__/replace-require.output.js)
 
 ### `replace-require-absolute-path`
 
@@ -54,6 +66,12 @@ Replaces all uses of [`xtend`](https://github.com/Raynos/xtend) with the es6 spr
 ```sh
 jscodeshift -t node_modules/uber-codemods/src/xtend-to-spread.js <transform-path>
 ```
+
+##### Code Examples
+
+[Before](src/__testfixtures__/xtend-to-spread.input.js)
+
+[After](src/__testfixtures__/xtend-to-spread.output.js)
 
 ## License
 
