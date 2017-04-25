@@ -22,6 +22,9 @@ import omit from 'just-omit';
 import omit from 'just-omit/extra';
 const otherOmit = require('just-omit');
 const otherOmit = require('just-omit/extra');
+const otherOmit = require('dont-touch-object.omit');
+
+const dontTouch = 'object.omit';
 
 const props = omit(
   {
