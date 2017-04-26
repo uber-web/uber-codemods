@@ -1,6 +1,6 @@
 {
   "name": "uber-codemods",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Web platform codemods",
   "bugs": {
     "url": "https://github.com/uber-web/uber-codemods/issues"
