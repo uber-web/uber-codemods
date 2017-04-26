@@ -20,27 +20,54 @@
 
 const escapeStringRegexp = require('escape-string-regexp');
 
-function codemodReplacement(declarationType, source, j, opts) {
-  const toReplaceRegex = new RegExp(escapeStringRegexp(opts.toReplace));
+function replaceImport(source, j, opts) {
   return j(source)
-    .find(j[declarationType])
+    .find(j.ImportDeclaration)
     .find(j.Literal)
     .filter(function filterValidRequires(literal) {
       const rawValue = literal.value.rawValue;
-      return typeof rawValue === 'string' && toReplaceRegex.test(rawValue);
+      return typeof rawValue === 'string' && opts.toReplace.test(rawValue);
     })
     .replaceWith(function replaceValidRequires(literal) {
       const rawValue = literal.value.rawValue;
-      const toRet = (rawValue).replace(toReplaceRegex, opts.replaceWith);
+      const newRawValue = (rawValue).replace(opts.toReplace, (a, trailingCharacters) => {
+        return `${opts.replaceWith}${trailingCharacters}`;
+      });
+      const toRet = (newRawValue).replace(opts.toReplace, opts.replaceWith);
       return j.literal(toRet);
     })
     .toSource({quote: 'single'});
 }
 
-module.exports = function replaceRequire(file, api, opts) {
+function replaceRequire(source, j, opts) {
+  return j(source)
+    .find(j.VariableDeclaration)
+    .find(j.CallExpression)
+    .filter(function filterNonRequires(callExpression) {
+      return callExpression.value.callee.name === 'require';
+    })
+    .replaceWith(literal => {
+      const rawValue = literal.value.arguments[0].rawValue;
+      if (typeof rawValue === 'string') {
+        const newRawValue = (rawValue).replace(opts.toReplace, (a, trailingCharacters) => {
+          return `${opts.replaceWith}${trailingCharacters}`;
+        });
+        return j.callExpression(
+          j.identifier('require'),
+          [j.literal(newRawValue)]
+        );
+      }
+      // fall-through if rawValue is not a string
+      return literal;
+    })
+    .toSource({quote: 'single'});
+}
+
+module.exports = function replace(file, api, opts) {
   const j = api.jscodeshift;
   const source = file.source;
 
-  const newSource = codemodReplacement('VariableDeclaration', source, j, opts);
-  return codemodReplacement('ImportDeclaration', newSource, j, opts);
+  opts.toReplace = new RegExp(`^${escapeStringRegexp(opts.toReplace)}(\/.*|$)`);
+  const newSource = replaceImport(source, j, opts);
+  return replaceRequire(newSource, j, opts);
 };

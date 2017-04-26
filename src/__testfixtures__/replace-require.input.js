@@ -19,9 +19,22 @@
 // THE SOFTWARE.
 
 import omit from 'object.omit';
-import omit from 'object.omit/extra';
 const otherOmit = require('object.omit');
+
+import omit from 'object.omit/extra';
 const otherOmit = require('object.omit/extra');
+
+import dontTouch from 'object.omit-dont-touch';
+const dontTouch = require('object.omit-dont-touch');
+
+import dontTouch from './object.omit';
+const dontTouch = require('./object.omit');
+
+import dontTouch from 'dont-touch-object.omit';
+const dontTouch = require('dont-touch-object.omit');
+
+const dontTouch = 'object.omit';
+const dontTouch = '';
 
 const props = omit(
   {
