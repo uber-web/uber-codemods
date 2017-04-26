@@ -30,7 +30,10 @@ function replaceImport(source, j, opts) {
     })
     .replaceWith(function replaceValidRequires(literal) {
       const rawValue = literal.value.rawValue;
-      const toRet = (rawValue).replace(opts.toReplace, opts.replaceWith);
+      const newRawValue = (rawValue).replace(opts.toReplace, (a, trailingCharacters) => {
+        return `${opts.replaceWith}${trailingCharacters}`;
+      });
+      const toRet = (newRawValue).replace(opts.toReplace, opts.replaceWith);
       return j.literal(toRet);
     })
     .toSource({quote: 'single'});
@@ -46,7 +49,9 @@ function replaceRequire(source, j, opts) {
     .replaceWith(literal => {
       const rawValue = literal.value.arguments[0].rawValue;
       if (typeof rawValue === 'string') {
-        const newRawValue = (rawValue).replace(opts.toReplace, opts.replaceWith);
+        const newRawValue = (rawValue).replace(opts.toReplace, (a, trailingCharacters) => {
+          return `${opts.replaceWith}${trailingCharacters}`;
+        });
         return j.callExpression(
           j.identifier('require'),
           [j.literal(newRawValue)]
@@ -62,7 +67,7 @@ module.exports = function replace(file, api, opts) {
   const j = api.jscodeshift;
   const source = file.source;
 
-  opts.toReplace = new RegExp(`^${escapeStringRegexp(opts.toReplace)}`);
+  opts.toReplace = new RegExp(`^${escapeStringRegexp(opts.toReplace)}(\/.*|$)`);
   const newSource = replaceImport(source, j, opts);
   return replaceRequire(newSource, j, opts);
 };

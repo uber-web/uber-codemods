@@ -23,6 +23,8 @@ import omit from 'just-omit/extra';
 const otherOmit = require('just-omit');
 const otherOmit = require('just-omit/extra');
 
+import dontTouch from 'object.omit-dont-touch';
+const dontTouch = require('object.omit-dont-touch');
 const dontTouch = require('./object.omit');
 const dontTouch = require('dont-touch-object.omit');
 const dontTouch = 'object.omit';
