@@ -67,7 +67,9 @@ module.exports = function replace(file, api, opts) {
   const j = api.jscodeshift;
   const source = file.source;
 
-  opts.toReplace = new RegExp(`^${escapeStringRegexp(opts.toReplace)}(\/.*|$)`);
+  if (typeof opts.toReplace === 'string') {
+    opts.toReplace = new RegExp(`^${escapeStringRegexp(opts.toReplace)}(\/.*|$)`);
+  }
   const newSource = replaceImport(source, j, opts);
   return replaceRequire(newSource, j, opts);
 };
