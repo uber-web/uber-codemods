@@ -63,7 +63,17 @@ function replaceRequire(source, j, opts) {
     .toSource({quote: 'single'});
 }
 
+// required argument wrapper
+const req = (opts, arg) => {
+  if (opts[arg] === undefined) {
+    throw new Error(`arg "${arg}" required. Received undefined`);
+  }
+};
+
 module.exports = function replace(file, api, opts) {
+  req(opts, 'toReplace');
+  req(opts, 'replaceWith');
+
   const j = api.jscodeshift;
   const source = file.source;
 

@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "execa": "^0.6.3",
+    "temp-dir-cp": "^1.0.1"
+  }
+}

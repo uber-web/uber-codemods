@@ -21,20 +21,20 @@
 import omit from 'just-omit';
 const otherOmit = require('just-omit');
 
-import omit from 'just-omit/extra';
-const otherOmit = require('just-omit/extra');
+import omit2 from 'just-omit/extra';
+const otherOmit2 = require('just-omit/extra');
 
-import dontTouch from 'object.omit-dont-touch';
-const dontTouch = require('object.omit-dont-touch');
+import dontTouch3 from 'object.omit-dont-touch';
+const otherDontTouch3 = require('object.omit-dont-touch');
 
-import dontTouch from './object.omit';
-const dontTouch = require('./object.omit');
+import dontTouch4 from './object.omit';
+const otherDontTouch4 = require('./object.omit');
 
-import dontTouch from 'dont-touch-object.omit';
-const dontTouch = require('dont-touch-object.omit');
+import dontTouch5 from 'dont-touch-object.omit';
+const otherDontTouch5 = require('dont-touch-object.omit');
 
-const dontTouch = 'object.omit';
-const dontTouch = '';
+const dontTouch6 = 'object.omit';
+const otherDontTouch6 = '';
 
 const props = omit(
   {
