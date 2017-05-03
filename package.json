@@ -15,7 +15,7 @@
   "scripts": {
     "lint": "eslint src",
     "ava": "ava src/ava-tests",
-    "test": "npm run lint && ava && jest"
+    "test": "npm run lint && npm run ava && jest"
   },
   "dependencies": {
     "escape-string-regexp": "^1.0.5"
