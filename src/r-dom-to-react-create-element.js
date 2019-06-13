@@ -38,7 +38,7 @@ function removeImport(source, j) {
   root
       .find(j.ImportDeclaration)
       .filter(importDeclaration => {
-        return importDeclaration.value.source.rawValue === 'r-dom';
+        return importDeclaration.value.source.value === 'r-dom';
       })
       .filter(importDeclaration => {
         rDomIdentifier = importDeclaration.value.specifiers[0].local.name;
